@@ -2,16 +2,16 @@ import './add-cell.css';
 import { useAction } from '../hooks/use-actions';
 
 interface AddCellProps {
-    nextCellId: string | null;
+    previousCellId: string | null;
     forceVisible?: boolean;
 }
 
-const AddCell: React.FC<AddCellProps> = ({ nextCellId, forceVisible }) => {
-    const { insertCellBefore } = useAction();
+const AddCell: React.FC<AddCellProps> = ({ previousCellId, forceVisible }) => {
+    const { insertCellAfter } = useAction();
     return (
         <div className={`add-cell ${forceVisible && 'force-visible'}`}>
             <div className='add-buttons'>
-                <button className='button is-rounded is-primary is-small' onClick={() => insertCellBefore(nextCellId, 'code')}>
+                <button className='button is-rounded is-primary is-small' onClick={() => insertCellAfter(previousCellId, 'code')}>
                     <span className='icon is-small'>
                         <i className='fas fa-plus'></i>
                     </span>
@@ -19,7 +19,7 @@ const AddCell: React.FC<AddCellProps> = ({ nextCellId, forceVisible }) => {
                         Code
                     </span>
                 </button>
-                <button className='button is-rounded is-primary is-small' onClick={() => insertCellBefore(nextCellId, 'text')}>
+                <button className='button is-rounded is-primary is-small' onClick={() => insertCellAfter(previousCellId, 'text')}>
                     <span className='icon is-small'>
                         <i className='fas fa-plus'></i>
                     </span>
