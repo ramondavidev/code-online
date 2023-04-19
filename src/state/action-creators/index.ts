@@ -5,6 +5,8 @@ import {
     UpdateCellAction, 
     DeleteCellAction, 
     MoveCellAction, 
+    ChangeLanguageToEn,
+    ChangeLanguageToPt,
     InsertCellAfterAction as InsertCellAfterAction,
     Direction
 } from "../actions";
@@ -28,6 +30,12 @@ export const deleteCell = (id: string): DeleteCellAction => {
     }
 };
 
+export const deleteAllCell = () => {
+    return {
+        type: ActionType.DELETE_ALL_CELL
+    }
+};
+
 export const moveCell = (id: string, direction: Direction): MoveCellAction => {
     return {
         type: ActionType.MOVE_CELL,
@@ -38,13 +46,26 @@ export const moveCell = (id: string, direction: Direction): MoveCellAction => {
     }
 };
 
-export const insertCellAfter = (id: string | null, cellType: CellTypes): InsertCellAfterAction => {
+export const insertCellAfter = (id: string | null, cellType: CellTypes, content: string): InsertCellAfterAction => {
     return {
         type: ActionType.INSERT_CELL_AFTER,
         payload: {
             id,
-            type: cellType
+            type: cellType,
+            content: content
         }
+    }
+};
+
+export const changeLanguageToEn = (): ChangeLanguageToEn => {
+    return {
+        type: ActionType.CHANGE_TO_EN
+    }
+};
+
+export const changeLanguageToPt = (): ChangeLanguageToPt => {
+    return {
+        type: ActionType.CHANGE_TO_PT
     }
 };
 

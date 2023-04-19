@@ -16,11 +16,16 @@ export interface DeleteCellAction {
     payload: string;
 }
 
+export interface DeleteAllCellAction {
+    type: ActionType.DELETE_ALL_CELL;
+}
+
 export interface InsertCellAfterAction {
     type: ActionType.INSERT_CELL_AFTER;
     payload: {
         id: string | null;
         type: CellTypes;
+        content: string;
     }
 }
 
@@ -50,10 +55,21 @@ export interface BundleCompleteAction {
     }
 }
 
+export interface ChangeLanguageToPt {
+    type: ActionType.CHANGE_TO_PT
+}
+
+export interface ChangeLanguageToEn {
+    type: ActionType.CHANGE_TO_EN
+}
+
 export type Action = 
     MoveCellAction |
     DeleteCellAction |
     InsertCellAfterAction |
     UpdateCellAction |
     BundleStartAction |
-    BundleCompleteAction;
+    BundleCompleteAction |
+    ChangeLanguageToPt |
+    ChangeLanguageToEn |
+    DeleteAllCellAction;

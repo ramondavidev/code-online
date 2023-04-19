@@ -3,6 +3,11 @@ import { ActionType } from '../action-types';
 import { Action } from '../actions';
 import { Cell } from '../cell';
 
+const LANGUAGES = {
+  PT: 1,
+  EN: 2
+}
+
 interface CellsState {
   loading: boolean;
   error: string | null;
@@ -10,6 +15,7 @@ interface CellsState {
   data: {
     [key: string]: Cell;
   };
+  language?: number;
 }
 
 const initialState: CellsState = {
@@ -17,6 +23,7 @@ const initialState: CellsState = {
   error: null,
   order: [],
   data: {},
+  language: LANGUAGES.PT
 };
 
 const reducer = produce((state: CellsState = initialState, action: Action) => {
@@ -32,6 +39,12 @@ const reducer = produce((state: CellsState = initialState, action: Action) => {
       state.order = state.order.filter((id) => id !== action.payload);
 
       return state;
+    case ActionType.DELETE_ALL_CELL:
+    return {
+      ...state,
+      data: {},
+      order: []
+    };
     case ActionType.MOVE_CELL:
       const { direction } = action.payload;
       const index = state.order.findIndex((id) => id === action.payload.id);
@@ -47,7 +60,7 @@ const reducer = produce((state: CellsState = initialState, action: Action) => {
       return state;
     case ActionType.INSERT_CELL_AFTER:
       const cell: Cell = {
-        content: '',
+        content: action.payload.content,
         type: action.payload.type,
         id: randomId(),
       };
@@ -65,6 +78,17 @@ const reducer = produce((state: CellsState = initialState, action: Action) => {
       }
 
       return state;
+
+      case ActionType.CHANGE_TO_EN:
+      return {
+        ...state,
+        language: LANGUAGES.EN
+      };
+      case ActionType.CHANGE_TO_PT:
+      return {
+        ...state,
+        language: LANGUAGES.PT
+      };
     default:
       return state;
   }
